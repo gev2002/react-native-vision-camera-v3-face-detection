@@ -152,5 +152,5 @@ class VisionCameraV3FaceDetectionModule (proxy : VisionCameraProxy, options: Map
       }
 }
 
-
+}
 
