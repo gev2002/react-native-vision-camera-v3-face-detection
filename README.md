@@ -1,31 +1,73 @@
-# react-native-vision-camera-v3-face-detection
 
-The frame processor plugin to detect faces using Google ML Kit library for react-native-vision-camera with high performance and many options.
+Frame processor plugin to detect faces using Google ML Kit library for react-native-vision-camera with high performance and many options.
 
-## Installation
+
+# 🚨 Required Modules
+react-native-vision-camera => 3.9.0
+react-native-worklets-core = 0.3.0
+
+## 💻 Installation
 
 ```sh
 npm install react-native-vision-camera-v3-face-detection
+yarn add react-native-vision-camera-v3-face-detection
 ```
+## 👷Features
+    Easy To Use.
+    Works Just Writing few lines of Code.
+    Works With React Native Vision Camera.
+    Works for Both Cameras.
+    Works Fast.
+    Works With Android 🤖 and IOS.📱
+    Writen With Objective-C and Kotlin.
 
-## Usage
+## 💡 Usage
 
 ```js
-import { multiply } from 'react-native-vision-camera-v3-face-detection';
+import { Camera } from 'react-native-vision-camera-v3-face-detection';
 
-// ...
+const [faces,setFaces] = useState(null)
 
-const result = await multiply(3, 7);
+console.log(faces)
+
+<Camera
+  options={{
+        performanceMode: 'fast',
+    }}
+  style={StyleSheet.absoluteFill}
+  device={device}
+  callback={(data) => setFaces(data)}
+  {...props}
+/>
 ```
 
-## Contributing
-
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
-
-## License
-
-MIT
 
 ---
 
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
+## ⚙️ Options
+
+
+| Name |  Type    |  Values  | Default |
+| :---:   | :---: | :---: |  :---: |
+| performanceMode | String  | fast, accurate    | fast |
+| classificationMode | String   | none, all   |  none |
+| landmarkMode | String   | none, all   | none |
+| contourMode | String   | none, all    | none |
+| trackingEnabled | Boolean   | false, true   | false |
+| minFaceSize | Number   | 0| 0.1 |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
