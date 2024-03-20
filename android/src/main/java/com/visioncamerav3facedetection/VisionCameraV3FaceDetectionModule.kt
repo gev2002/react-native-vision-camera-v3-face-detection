@@ -14,27 +14,29 @@ import com.google.mlkit.vision.face.FaceLandmark
 import com.mrousavy.camera.frameprocessor.Frame
 import com.mrousavy.camera.frameprocessor.FrameProcessorPlugin
 import com.mrousavy.camera.frameprocessor.VisionCameraProxy
+import com.mrousavy.camera.types.Orientation
 
 class VisionCameraV3FaceDetectionModule (proxy : VisionCameraProxy, options: Map<String, Any>?): FrameProcessorPlugin() {
 
   override fun callback(frame: Frame, arguments: Map<String, Any>?): Any {
-    val performanceModeValue = if (arguments?.get("performanceMode") == "accurate") FaceDetectorOptions.PERFORMANCE_MODE_ACCURATE else FaceDetectorOptions.PERFORMANCE_MODE_FAST
-    val landmarkModeValue = if (arguments?.get("landmarkMode") == "all") FaceDetectorOptions.LANDMARK_MODE_ALL else FaceDetectorOptions.LANDMARK_MODE_NONE
-    val classificationModeValue = if (arguments?.get("classificationMode") == "all") FaceDetectorOptions.CLASSIFICATION_MODE_ALL else FaceDetectorOptions.CLASSIFICATION_MODE_NONE
-    val contourModeValue = if (arguments?.get("contourMode") == "all") FaceDetectorOptions.CONTOUR_MODE_ALL else FaceDetectorOptions.CONTOUR_MODE_NONE
-    val minFaceSize = arguments?.get("minFaceSize")?.toString()?.toDoubleOrNull()?.toFloat() ?: 0.15f
-    val options = FaceDetectorOptions.Builder()
-      .setPerformanceMode(performanceModeValue)
-      .setLandmarkMode(landmarkModeValue)
-      .setContourMode(contourModeValue)
-      .setClassificationMode(classificationModeValue)
-      .setMinFaceSize(minFaceSize)
-      .apply { if (arguments?.get("trackingEnabled") == "true") enableTracking() }
-      .build()
-    val mediaImage: Image = frame.image
-    val detector = FaceDetection.getClient(options)
       try {
-        val image = InputImage.fromMediaImage(mediaImage, 0)
+        val performanceModeValue = if (arguments?.get("performanceMode") == "accurate") FaceDetectorOptions.PERFORMANCE_MODE_ACCURATE else FaceDetectorOptions.PERFORMANCE_MODE_FAST
+        val landmarkModeValue = if (arguments?.get("landmarkMode") == "all") FaceDetectorOptions.LANDMARK_MODE_ALL else FaceDetectorOptions.LANDMARK_MODE_NONE
+        val classificationModeValue = if (arguments?.get("classificationMode") == "all") FaceDetectorOptions.CLASSIFICATION_MODE_ALL else FaceDetectorOptions.CLASSIFICATION_MODE_NONE
+        val contourModeValue = if (arguments?.get("contourMode") == "all") FaceDetectorOptions.CONTOUR_MODE_ALL else FaceDetectorOptions.CONTOUR_MODE_NONE
+        val minFaceSize = arguments?.get("minFaceSize")?.toString()?.toDoubleOrNull()?.toFloat() ?: 0.15f
+        val options = FaceDetectorOptions.Builder()
+          .setPerformanceMode(performanceModeValue)
+          .setLandmarkMode(landmarkModeValue)
+          .setContourMode(contourModeValue)
+          .setClassificationMode(classificationModeValue)
+          .setMinFaceSize(minFaceSize)
+          .apply { if (arguments?.get("trackingEnabled") == "true") enableTracking() }
+          .build()
+        val mediaImage: Image = frame.image
+        val orientation : Orientation = frame.orientation
+        val detector = FaceDetection.getClient(options)
+        val image = InputImage.fromMediaImage(mediaImage, orientation.toDegrees())
         val task: Task<List<Face>> = detector.process(image)
         val faces: List<Face> = Tasks.await(task)
         val array = WritableNativeArray()
