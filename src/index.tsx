@@ -18,6 +18,7 @@ export const Camera = (props: CameraTypes) => {
       'worklet';
       const data: object = scanFaces(frame, options);
       // @ts-ignore
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       useWorklets(data);
     },
     []

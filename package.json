@@ -1,6 +1,6 @@
 {
   "name": "react-native-vision-camera-v3-face-detection",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "The frame processor plugin to detect faces using Google ML Kit library for react-native-vision-camera with high performance and many options.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
