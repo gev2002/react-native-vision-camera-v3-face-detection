@@ -148,6 +148,7 @@ class VisionCameraV3FaceDetectionModule (proxy : VisionCameraProxy, options: Map
           }
           array.pushMap(map)
         }
+
         return array.toArrayList()
       } catch (e: Exception) {
            throw Exception("Error processing face detection: $e")
